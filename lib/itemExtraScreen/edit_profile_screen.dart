@@ -44,24 +44,45 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            TextField(
+            const SizedBox(
+              height: 180.0,
+              child: CircleAvatar(
+                radius: 80,
+                backgroundImage: AssetImage('assets/images/profile_image.jpg'),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
               controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Name'),
+              decoration: const InputDecoration(
+                labelText: 'Name',
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 8.0),
-            TextField(
+            TextFormField(
               controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 8.0),
-            TextField(
+            TextFormField(
               controller: _aboutMeController,
-              decoration: const InputDecoration(labelText: 'About Me'),
+              decoration: const InputDecoration(
+                labelText: 'About Me',
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 3,
             ),
             const SizedBox(height: 8.0),
-            TextField(
+            TextFormField(
               controller: _locationController,
-              decoration: const InputDecoration(labelText: 'Location'),
+              decoration: const InputDecoration(
+                labelText: 'Location',
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
@@ -76,6 +97,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // Reload the profile on the ProfileScreen
                 Navigator.of(context).pop(true);
               },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(12.0),
+              ),
               child: const Text('Save Changes'),
             ),
           ],

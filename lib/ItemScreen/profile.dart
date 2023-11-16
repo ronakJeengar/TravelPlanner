@@ -44,48 +44,98 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Profile'),
-      // ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/images/profile_image.jpg'),
-              // Add your profile image
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xFF4AC5FF), Color(0xFF0099FF)],
+              ),
             ),
-            const SizedBox(height: 16.0),
-            Text(
-              'Name: $_name',
-              style: const TextStyle(fontSize: 18.0),
+          ),
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 80.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 5,
+                  blurRadius: 15,
+                ),
+              ],
             ),
-            const SizedBox(height: 8.0),
-            Text(
-              'Email: $_email',
-              style: const TextStyle(fontSize: 18.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Center(
+                  child: CircleAvatar(
+                    radius: 70,
+                    backgroundImage: const AssetImage('assets/images/profile_image.jpg'),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                Text(
+                  _name,
+                  style: const TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.black),
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  _email,
+                  style: const TextStyle(fontSize: 18.0, color: Colors.grey),
+                ),
+                const SizedBox(height: 24.0),
+                Divider(color: Colors.grey),
+                const SizedBox(height: 24.0),
+                Text(
+                  'About Me:',
+                  style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  _aboutMe,
+                  style: const TextStyle(fontSize: 18.0),
+                ),
+                const SizedBox(height: 24.0),
+                Divider(color: Colors.grey),
+                const SizedBox(height: 24.0),
+                Text(
+                  'Location:',
+                  style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  _location,
+                  style: const TextStyle(fontSize: 18.0),
+                ),
+                const SizedBox(height: 24.0),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/edit_profile_screen');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF0099FF),
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+                    child: const Text(
+                      'Edit Profile',
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 8.0),
-            Text(
-              'About Me: $_aboutMe',
-              style: const TextStyle(fontSize: 18.0),
-            ),
-            const SizedBox(height: 8.0),
-            Text(
-              'Location: $_location',
-              style: const TextStyle(fontSize: 18.0),
-            ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/edit_profile_screen');
-              },
-              child: const Text('Edit Profile'),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

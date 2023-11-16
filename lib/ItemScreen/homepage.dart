@@ -40,11 +40,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          const SizedBox(height: 16.0),
           if (upcomingTrips.isNotEmpty)
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                'Upcoming Trip',
+                'Upcoming Trips',
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
@@ -53,13 +54,24 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ),
           if (upcomingTrips.isNotEmpty)
             SizedBox(
-              height: 200.0, // Set the desired height for the horizontal list
+              height: 200.0,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: upcomingTrips.length,
                 itemBuilder: (context, index) {
                   return UpcomingTripCard(trip: upcomingTrips[index]);
                 },
+              ),
+            ),
+          if (upcomingTrips.isEmpty)
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'No upcoming trips.',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
         ],
@@ -127,70 +139,60 @@ class _UpcomingTripCardState extends State<UpcomingTripCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(2.0, 23.0, 2.0, 23.0), // Set different margins here
-      constraints: const BoxConstraints(maxWidth: 400.0), // Set a maximum width
+      margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+      constraints: const BoxConstraints(maxWidth: 300.0),
       child: Card(
+        elevation: 4.0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0), // Adjust border radius as needed
+          borderRadius: BorderRadius.circular(16.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Departure',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Destination',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+              Text(
+                'Departure: ${widget.trip.departure}',
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              Text(
+                'Destination: ${widget.trip.destination}',
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8.0),
+              Text(
+                'Remaining Days: $remainingDays',
+                style: const TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+              Text(
+                'Countdown: $countdownText',
+                style: const TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+              const SizedBox(height: 8.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    widget.trip.departure,
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                    ),
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // Add logic to view trip details
+                    },
+                    child: const Text('View Details'),
                   ),
-                  Text(
-                    widget.trip.destination,
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16.0),
-              Row(
-                children: <Widget>[
-                  Text(
-                    'Remaining Days: $remainingDays',
-                    style: const TextStyle(
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Text(
-                    'Countdown: $countdownText',
-                    style: const TextStyle(
-                      fontSize: 15.0,
-                    ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Add logic to edit trip details
+                    },
+                    child: const Text('Edit Trip'),
                   ),
                 ],
               ),
