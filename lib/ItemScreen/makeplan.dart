@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart'; // Import Provider package
+import 'package:provider/provider.dart';
 import '../db/databasehelper.dart';
 import '../trip.dart';
-import '../trip_provider.dart'; // Import your TripProvider
+import '../trip_provider.dart';
 
 class MakePlanScreen extends StatefulWidget {
   const MakePlanScreen({Key? key}) : super(key: key);
@@ -26,14 +26,11 @@ class _MakePlanScreenState extends State<MakePlanScreen> {
       date: _selectedDate,
     );
 
-    // Use the tripProvider to add the trip
     await tripProvider.addTrip(trip);
 
-    // Clear input fields
     _departureController.clear();
     _destinationController.clear();
 
-    // Show a snackbar to indicate that the trip has been added
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Trip added successfully.'),
@@ -62,63 +59,86 @@ class _MakePlanScreenState extends State<MakePlanScreen> {
     }
   }
 
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to exit without adding the trip?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    )) ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Make a Plan'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Flexible(
-                  child: TextField(
-                    controller: _departureController,
-                    decoration: const InputDecoration(
-                      labelText: 'Departure Place',
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Make a Plan'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    child: TextField(
+                      controller: _departureController,
+                      decoration: const InputDecoration(
+                        labelText: 'Departure Place',
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.swap_horiz), // Interchange icon
-                  onPressed: _swapFields,
-                ),
-                Flexible(
-                  child: TextField(
-                    controller: _destinationController,
-                    decoration: const InputDecoration(
-                      labelText: 'Destination Place',
+                  IconButton(
+                    icon: const Icon(Icons.swap_horiz),
+                    onPressed: _swapFields,
+                  ),
+                  Flexible(
+                    child: TextField(
+                      controller: _destinationController,
+                      decoration: const InputDecoration(
+                        labelText: 'Destination Place',
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            Row(
-              children: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.calendar_today), // Calendar icon
-                  onPressed: () => _selectDate(context),
-                ),
-                const SizedBox(width: 8.0),
-                Text(
-                  DateFormat('dd-MM-yyyy').format(_selectedDate),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                ],
+              ),
+              const SizedBox(height: 16.0),
+              Row(
+                children: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.calendar_today),
+                    onPressed: () => _selectDate(context),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () => _addTripDetails(context),
-              child: const Text('Add'),
-            ),
-          ],
+                  const SizedBox(width: 8.0),
+                  Text(
+                    DateFormat('dd-MM-yyyy').format(_selectedDate),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () => _addTripDetails(context),
+                child: const Text('Add'),
+              ),
+            ],
+          ),
         ),
       ),
     );
