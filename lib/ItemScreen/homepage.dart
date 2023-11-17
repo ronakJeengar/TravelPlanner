@@ -42,8 +42,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
         children: <Widget>[
           const SizedBox(height: 16.0),
           if (upcomingTrips.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 'Upcoming Trips',
                 style: TextStyle(
@@ -54,7 +54,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ),
           if (upcomingTrips.isNotEmpty)
             SizedBox(
-              height: 200.0,
+              height: 235.0,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: upcomingTrips.length,
