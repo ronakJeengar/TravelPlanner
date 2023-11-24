@@ -8,12 +8,10 @@ import 'package:travelapp/home.dart';
 import 'package:travelapp/Otp.dart';
 import 'package:travelapp/login.dart';
 import 'package:travelapp/trip_provider.dart';
-
 import 'ItemScreen/history.dart';
 import 'itemExtraScreen/edit_profile_screen.dart';
 
 void main() {
- // You should implement this function
   runApp(
     ChangeNotifierProvider(
       create: (context) => TripProvider(), // Provide the TripProvider
