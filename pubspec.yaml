@@ -30,18 +30,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  sms_autofill: ^2.1.0 # Add the latest version of sms_autofill
+  sms_autofill: ^2.1.0 #Add the latest version of sms_autofill
   intl_phone_number_input: ^0.7.3+1
   pin_code_fields: ^8.0.1
   custom_navigation_bar: ^0.8.2
   intl: ^0.18.1
   sqflite: ^2.3.0
   provider: ^5.0.0
-  flutter_map: ^6.0.1
-  cached_network_image: ^3.3.0
-  latlong2: ^0.9.0
   flutter_local_notifications: ^16.1.0
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
