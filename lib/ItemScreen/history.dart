@@ -22,50 +22,50 @@ class _HistoryScreenState extends State<HistoryScreen> {
           return tripProvider.trips.isEmpty
               ? const Center(child: Text('No trips found.'))
               : ListView.builder(
-                  itemCount: tripProvider.trips.length,
-                  itemBuilder: (context, index) {
-                    final trip = tripProvider.trips[index];
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+            itemCount: tripProvider.trips.length,
+            itemBuilder: (context, index) {
+              final trip = tripProvider.trips[index];
+              return Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                margin: const EdgeInsets.symmetric(
+                    horizontal: 10.0, vertical: 5.0),
+                elevation: 3,
+                color: Colors.white70,
+                child: ListTile(
+                  contentPadding: const EdgeInsets.all(16.0),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Departure: ${trip.departure}'),
+                      Text('Destination: ${trip.destination}'),
+                      Text(
+                        'Date: ${DateFormat('dd-MM-yyyy').format(trip.date)}',
                       ),
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 5.0),
-                      elevation: 3,
-                      color: Colors.white70,
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.all(16.0),
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text('Departure: ${trip.departure}'),
-                            Text('Destination: ${trip.destination}'),
-                            Text(
-                              'Date: ${DateFormat('dd-MM-yyyy').format(trip.date)}',
-                            ),
-                          ],
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                _editTripDetails(context, trip);
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () {
-                                _deleteTrip(context, trip);
-                              },
-                            ),
-                          ],
-                        ),
+                    ],
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          _editTripDetails(context, trip);
+                        },
                       ),
-                    );
-                  },
-                );
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          _deleteTrip(context, trip);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
         },
       ),
     );
@@ -102,9 +102,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
       context: context,
       builder: (context) {
         final TextEditingController departureController =
-            TextEditingController(text: editedTrip.departure);
+        TextEditingController(text: editedTrip.departure);
         final TextEditingController destinationController =
-            TextEditingController(text: editedTrip.destination);
+        TextEditingController(text: editedTrip.destination);
         DateTime selectedDate = editedTrip.date;
 
         return AlertDialog(
@@ -122,7 +122,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               TextField(
                 controller: destinationController,
                 decoration:
-                    const InputDecoration(labelText: 'Destination Place'),
+                const InputDecoration(labelText: 'Destination Place'),
                 onChanged: (text) {
                   editedTrip.destination = text;
                 },
